@@ -3,7 +3,7 @@
 mkdir -p /share/snapfifo
 mkdir -p /share/snapcast
 
-config=/etc/snapserver.conf
+config_file=/etc/snapserver.conf
 
 if ! bashio::fs.file_exists '/etc/snapserver.conf'; then
     touch /etc/snapserver.conf ||
@@ -13,30 +13,30 @@ bashio::log.info "Populating snapserver.conf..."
 
 # Start creation of configuration
 
-echo "[stream]" > "${config}"
+echo "[stream]" > "${config_file}"
 for stream in $(bashio::config 'stream.streams'); do
-    echo "stream = ${stream}" >> "${config}"
+    echo "stream = ${stream}" >> "${config_file}"
 done
-echo "buffer = $(bashio::config 'stream.buffer')" >> "${config}"
-echo "codec = $(bashio::config 'stream.codec')" >> "${config}"
-echo "send_to_muted = $(bashio::config 'stream.send_to_muted')" >> "${config}"
-echo "sampleformat = $(bashio::config 'stream.sampleformat')" >> "${config}"
+echo "buffer = $(bashio::config 'stream.buffer')" >> "${config_file}"
+echo "codec = $(bashio::config 'stream.codec')" >> "${config_file}"
+echo "send_to_muted = $(bashio::config 'stream.send_to_muted')" >> "${config_file}"
+echo "sampleformat = $(bashio::config 'stream.sampleformat')" >> "${config_file}"
 
-echo "[http]" >> "${config}"
-echo "enabled = $(bashio::config 'http.enabled')" >> "${config}"
-echo "doc_root = $(bashio::config 'http.docroot')" >> "${config}"
+echo "[http]" >> "${config_file}"
+echo "enabled = $(bashio::config 'http.enabled')" >> "${config_file}"
+echo "doc_root = $(bashio::config 'http.docroot')" >> "${config_file}"
 
-echo "[tcp]" >> "${config}"
-echo "enabled = $(bashio::config 'tcp.enabled')" >> "${config}"
+echo "[tcp]" >> "${config_file}"
+echo "enabled = $(bashio::config 'tcp.enabled')" >> "${config_file}"
 
-echo "[logging]" >> "${config}"
-echo "debug = $(bashio::config 'logging.enabled')" >> "${config}"
+echo "[logging]" >> "${config_file}"
+echo "debug = $(bashio::config 'logging.enabled')" >> "${config_file}"
 
-echo "[server]" >> "${config}"
-echo "threads = $(bashio::config 'server.threads')" >> "${config}"
+echo "[server]" >> "${config_file}"
+echo "threads = $(bashio::config 'server.threads')" >> "${config_file}"
 
-echo "[server]" >> "${config}"
-echo "datadir = $(bashio::config 'server.datadir')" >> "${config}"
+echo "[server]" >> "${config_file}"
+echo "datadir = $(bashio::config 'server.datadir')" >> "${config_file}"
 
 bashio::log.info "Starting SnapServer..."
 
